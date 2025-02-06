@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../core/store/auth/auth.actions';
+import { AuthFacade } from '../../core/store/auth/auth.facade';
 
 @Component({
   selector: 'auth',
@@ -10,9 +11,9 @@ import * as AuthActions from '../../core/store/auth/auth.actions';
   styleUrl: './auth.component.scss',
 })
 export class AuthComponent {
-  constructor(private store: Store) {}
+  constructor(private authFacade: AuthFacade) {}
 
   signInWithGoogle() {
-    this.store.dispatch(AuthActions.login());
+    this.authFacade.login();
   }
 }

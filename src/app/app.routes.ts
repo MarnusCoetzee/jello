@@ -23,11 +23,10 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     canActivate: [authGuard],
-    loadComponent() {
-      return import('./features/dashboard/dashboard.component').then(
-        (m) => m.DashboardComponent
-      );
-    },
+    loadChildren: () =>
+      import('./features/dashboard/dashboard.routes').then(
+        (m) => m.dashboardRoutes
+      ),
   },
   {
     path: '**',
