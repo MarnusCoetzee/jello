@@ -1,11 +1,12 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+import { UserRecord } from 'firebase-functions/v1/auth';
 
-admin.initializeApp(); // Make sure this is called once in your functions
+admin.initializeApp();
 
 exports.createUserDocument = functions.auth
   .user()
-  .onCreate(async (user: any) => {
+  .onCreate(async (user: UserRecord) => {
     const { uid, email, displayName, photoURL, phoneNumber, providerData } =
       user;
 
@@ -21,8 +22,5 @@ exports.createUserDocument = functions.auth
 
     try {
       await admin.firestore().collection('users').doc(uid).set(userData);
-      console.log(`Successfully created Firestore doc for user: ${uid}`);
-    } catch (error) {
-      console.error(`Error creating Firestore doc for user: ${uid}`, error);
-    }
+    } catch (error) {}
   });
